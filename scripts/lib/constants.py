@@ -14,6 +14,7 @@ TRANSPORT_PATH = DATA_DIR / "transport_options.csv"
 MYMAPS_OUTPUT_PATH = OUTPUT_DIR / "mymaps_import.csv"
 DASHBOARD_OUTPUT_PATH = OUTPUT_DIR / "travel_dashboard.html"
 PAGES_INDEX_OUTPUT_PATH = OUTPUT_DIR / "index.html"
+ROOT_INDEX_OUTPUT_PATH = PROJECT_ROOT / "index.html"
 
 DOC_TAB_FILES = [
     ("overview", "概要", DOCS_DIR / "00_overview.md"),

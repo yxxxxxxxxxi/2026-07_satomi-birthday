@@ -16,6 +16,7 @@ from lib.constants import (
     MYMAPS_OUTPUT_PATH,
     PAGES_INDEX_OUTPUT_PATH,
     RESTAURANT_PATH,
+    ROOT_INDEX_OUTPUT_PATH,
     SIGHTSEEING_PATH,
     TRANSPORT_PATH,
     CONFIG_PATH,
@@ -813,6 +814,8 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
     output_path.write_text(html_output, encoding="utf-8")
     if output_path != PAGES_INDEX_OUTPUT_PATH:
         PAGES_INDEX_OUTPUT_PATH.write_text(html_output, encoding="utf-8")
+    if output_path != ROOT_INDEX_OUTPUT_PATH:
+        ROOT_INDEX_OUTPUT_PATH.write_text(html_output, encoding="utf-8")
     return output_path
 
 

@@ -24,6 +24,6 @@
 
 ## GitHub Pages での共有
 
-- `output/index.html` が GitHub Pages の公開入口です
-- `main` ブランチに push すると、GitHub Actions で Pages デプロイできます
+- ルートの `index.html` が GitHub Pages の公開入口です
+- `main` ブランチの `/(root)` を Pages の公開元に設定します
 - 共有 URL は公開 URL なので、個人情報は置かない前提で使います
