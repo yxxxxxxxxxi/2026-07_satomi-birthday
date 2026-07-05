@@ -23,8 +23,9 @@ class BuildDashboardTests(unittest.TestCase):
             self.assertIn("予約・ToDo", html)
             self.assertIn("未登録", html)
             self.assertIn("tab-button", html)
+            self.assertIn("Anniversary Escape", html)
+            self.assertIn("Couple itinerary", html)
 
 
 if __name__ == "__main__":
     unittest.main()
-

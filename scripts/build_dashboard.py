@@ -9,6 +9,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from lib.constants import (
+    CONFIG_PATH,
     DASHBOARD_OUTPUT_PATH,
     DAY_ORDER,
     DOC_TAB_FILES,
@@ -19,7 +20,6 @@ from lib.constants import (
     ROOT_INDEX_OUTPUT_PATH,
     SIGHTSEEING_PATH,
     TRANSPORT_PATH,
-    CONFIG_PATH,
 )
 from lib.loaders import load_trip_config, read_csv_rows, read_markdown
 from lib.renderers import (
@@ -31,6 +31,72 @@ from lib.renderers import (
     render_table,
 )
 from lib.validators import load_and_validate_sightseeing
+
+
+THEME_PRESETS = {
+    "professional": {
+        "eyebrow": "Travel Planning Dashboard",
+        "hero_tag": "PLAN OVERVIEW",
+        "hero_note_label": "旅のテーマ",
+        "topbar_label": "Planning view",
+        "generated_prefix": "Generated",
+        "footer": "Static local MVP dashboard for travel planning.",
+        "stats_title": "検討メモ",
+        "summary_class": "hero-summary",
+        "sans": '"Hiragino Sans", "Yu Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
+        "serif": '"Hiragino Mincho ProN", "Yu Mincho", Georgia, serif',
+        "bg_top": "#f6efe4",
+        "bg_bottom": "#fffaf2",
+        "surface": "rgba(255, 255, 255, 0.8)",
+        "surface_strong": "#fffdf8",
+        "ink": "#1f2933",
+        "muted": "#5f6c76",
+        "line": "rgba(145, 114, 73, 0.18)",
+        "accent": "#b14d32",
+        "accent_soft": "rgba(177, 77, 50, 0.12)",
+        "accent_soft_strong": "rgba(177, 77, 50, 0.2)",
+        "gold": "#c6952d",
+        "green": "#2c6b4f",
+        "blue": "#335c81",
+        "card_glow": "rgba(198, 149, 45, 0.16)",
+        "card_blush": "rgba(177, 77, 50, 0.12)",
+        "shadow": "0 18px 40px rgba(84, 56, 18, 0.12)",
+        "hero_border": "rgba(255, 255, 255, 0.7)",
+        "tab_surface": "rgba(255, 253, 248, 0.85)",
+        "table_head": "rgba(255, 250, 242, 0.92)",
+    },
+    "couple": {
+        "eyebrow": "Anniversary Escape",
+        "hero_tag": "FOR THE TWO OF US",
+        "hero_note_label": "この旅で大事にしたいこと",
+        "topbar_label": "Couple itinerary",
+        "generated_prefix": "Updated",
+        "footer": "A small keepsake site for planning a gentle birthday getaway together.",
+        "stats_title": "ふたりの旅メモ",
+        "summary_class": "hero-summary hero-summary-soft",
+        "sans": '"Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
+        "serif": '"Tsukushi A Round Gothic", "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif',
+        "bg_top": "#fff1ee",
+        "bg_bottom": "#fffaf5",
+        "surface": "rgba(255, 252, 250, 0.86)",
+        "surface_strong": "rgba(255, 255, 255, 0.92)",
+        "ink": "#3f2f38",
+        "muted": "#7a6570",
+        "line": "rgba(197, 120, 131, 0.2)",
+        "accent": "#d56a7c",
+        "accent_soft": "rgba(213, 106, 124, 0.14)",
+        "accent_soft_strong": "rgba(213, 106, 124, 0.22)",
+        "gold": "#d6a35b",
+        "green": "#5f8a72",
+        "blue": "#59719d",
+        "card_glow": "rgba(214, 163, 91, 0.16)",
+        "card_blush": "rgba(213, 106, 124, 0.18)",
+        "shadow": "0 20px 46px rgba(170, 103, 117, 0.14)",
+        "hero_border": "rgba(255, 255, 255, 0.9)",
+        "tab_surface": "rgba(255, 247, 246, 0.88)",
+        "table_head": "rgba(255, 244, 243, 0.95)",
+    },
+}
 
 
 def _priority_badge(priority: str) -> str:
@@ -76,7 +142,12 @@ def _build_stats(rows: Sequence[Dict[str, str]]) -> List[Dict[str, str]]:
     ]
 
 
-def _build_stats_html(stats: Sequence[Dict[str, str]]) -> str:
+def _resolve_theme(trip: Dict[str, object]) -> Dict[str, str]:
+    tone = str(trip.get("tone", "professional")).strip().lower()
+    return dict(THEME_PRESETS.get(tone, THEME_PRESETS["professional"]))
+
+
+def _build_stats_html(stats: Sequence[Dict[str, str]], theme: Dict[str, str]) -> str:
     cards = []
     for stat in stats:
         cards.append(
@@ -87,11 +158,21 @@ def _build_stats_html(stats: Sequence[Dict[str, str]]) -> str:
                 "</article>"
             ).format(escape_text(stat["label"]), escape_text(stat["value"]))
         )
-    return '<section class="stats-grid">{0}</section>'.format("".join(cards))
+    return (
+        '<section class="stats-section">'
+        '<div class="section-mini-label">{0}</div>'
+        '<div class="stats-grid">{1}</div>'
+        "</section>"
+    ).format(escape_text(theme["stats_title"]), "".join(cards))
 
 
-def _build_overview_section(trip: Dict[str, object], docs: Dict[str, str], rows: Sequence[Dict[str, str]]) -> str:
-    stats_html = _build_stats_html(_build_stats(rows))
+def _build_overview_section(
+    trip: Dict[str, object],
+    docs: Dict[str, str],
+    rows: Sequence[Dict[str, str]],
+    theme: Dict[str, str],
+) -> str:
+    stats_html = _build_stats_html(_build_stats(rows), theme)
     priorities = trip.get("priorities", [])
     areas = trip.get("areas", [])
     meta_html = (
@@ -108,24 +189,41 @@ def _build_overview_section(trip: Dict[str, object], docs: Dict[str, str], rows:
         escape_text(trip.get("days", "")),
     )
     priorities_html = render_chip_row(priorities if isinstance(priorities, list) else [])
+    purpose = str(trip.get("purpose", "")).strip()
+    purpose_html = ""
+    if purpose:
+        purpose_html = (
+            '<div class="hero-note">'
+            '<div class="section-mini-label">{0}</div>'
+            '<p>{1}</p>'
+            "</div>"
+        ).format(escape_text(theme["hero_note_label"]), escape_text(purpose))
     return (
         '<section class="hero">'
         '<div class="hero-copy">'
-        '<p class="eyebrow">Birthday Trip Dashboard</p>'
-        '<h1>{0}</h1>'
-        '<p class="hero-summary">{1}</p>'
-        "{2}"
-        "{3}"
+        '<p class="eyebrow">{0}</p>'
+        '<div class="hero-tag">{1}</div>'
+        '<h1>{2}</h1>'
+        '<p class="{3}">{4}</p>'
+        "{5}"
+        "{6}"
+        "</div>"
+        '<div class="hero-side">'
+        "{7}"
+        "{8}"
         "</div>"
         "</section>"
-        "{4}"
-        '<section class="content-card">{5}</section>'
+        '<section class="content-card content-card-overview">{9}</section>'
     ).format(
+        escape_text(theme["eyebrow"]),
+        escape_text(theme["hero_tag"]),
         escape_text(trip.get("trip_name", "")),
+        escape_text(theme["summary_class"]),
         escape_text(trip.get("summary", "")),
         meta_html,
         priorities_html,
         stats_html,
+        purpose_html,
         markdown_to_html(docs["overview"]),
     )
 
@@ -150,7 +248,7 @@ def _build_day_cards(rows: Sequence[Dict[str, str]]) -> str:
         for row in day_rows:
             items.append(
                 (
-                    '<li>'
+                    "<li>"
                     '<div class="candidate-name">{0}</div>'
                     '<div class="candidate-badges">{1}{2}{3}{4}</div>'
                     '<p class="candidate-memo">{5}</p>'
@@ -275,8 +373,40 @@ def _build_section(title: str, doc_html: str, content_html: str) -> str:
     ).format(escape_text(title), doc_html, content_html)
 
 
+def _build_theme_css(theme: Dict[str, str]) -> str:
+    return """
+    :root {{
+      --bg-top: {bg_top};
+      --bg-bottom: {bg_bottom};
+      --surface: {surface};
+      --surface-strong: {surface_strong};
+      --ink: {ink};
+      --muted: {muted};
+      --line: {line};
+      --accent: {accent};
+      --accent-soft: {accent_soft};
+      --accent-soft-strong: {accent_soft_strong};
+      --gold: {gold};
+      --green: {green};
+      --blue: {blue};
+      --card-glow: {card_glow};
+      --card-blush: {card_blush};
+      --shadow: {shadow};
+      --hero-border: {hero_border};
+      --tab-surface: {tab_surface};
+      --table-head: {table_head};
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --serif: {serif};
+      --sans: {sans};
+    }}
+    """.format(**theme)
+
+
 def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
     trip = load_trip_config(CONFIG_PATH)
+    theme = _resolve_theme(trip)
     sightseeing_rows = load_and_validate_sightseeing(SIGHTSEEING_PATH)
     hotel_rows = _load_optional_rows(HOTEL_PATH)
     restaurant_rows = _load_optional_rows(RESTAURANT_PATH)
@@ -287,7 +417,7 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
         {
             "id": "overview",
             "label": "概要",
-            "body": _build_overview_section(trip, docs, sightseeing_rows),
+            "body": _build_overview_section(trip, docs, sightseeing_rows, theme),
         },
         {
             "id": "itinerary",
@@ -424,26 +554,7 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
   <style>
-    :root {{
-      --bg-top: #f6efe4;
-      --bg-bottom: #fffaf2;
-      --surface: rgba(255, 255, 255, 0.8);
-      --surface-strong: #fffdf8;
-      --ink: #1f2933;
-      --muted: #5f6c76;
-      --line: rgba(145, 114, 73, 0.18);
-      --accent: #b14d32;
-      --accent-soft: rgba(177, 77, 50, 0.12);
-      --gold: #c6952d;
-      --green: #2c6b4f;
-      --blue: #335c81;
-      --shadow: 0 18px 40px rgba(84, 56, 18, 0.12);
-      --radius-xl: 24px;
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --serif: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
-      --sans: "Hiragino Sans", "Yu Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
-    }}
+    {theme_css}
 
     * {{
       box-sizing: border-box;
@@ -451,21 +562,50 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
 
     body {{
       margin: 0;
+      min-height: 100vh;
       font-family: var(--sans);
       color: var(--ink);
       background:
-        radial-gradient(circle at top right, rgba(198, 149, 45, 0.16), transparent 28%),
-        radial-gradient(circle at bottom left, rgba(177, 77, 50, 0.12), transparent 34%),
+        radial-gradient(circle at top right, var(--card-glow), transparent 28%),
+        radial-gradient(circle at bottom left, var(--card-blush), transparent 34%),
         linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
     }}
 
     .shell {{
+      position: relative;
       max-width: 1180px;
       margin: 0 auto;
       padding: 24px 16px 56px;
     }}
 
+    .shell::before,
+    .shell::after {{
+      content: "";
+      position: fixed;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(2px);
+      opacity: 0.55;
+    }}
+
+    .shell::before {{
+      top: 70px;
+      right: -70px;
+      background: radial-gradient(circle, var(--accent-soft-strong) 0%, transparent 68%);
+    }}
+
+    .shell::after {{
+      bottom: 40px;
+      left: -90px;
+      background: radial-gradient(circle, rgba(214, 163, 91, 0.18) 0%, transparent 68%);
+    }}
+
     .topbar {{
+      position: relative;
+      z-index: 1;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -492,7 +632,7 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
 
     .tab-button {{
       border: 1px solid var(--line);
-      background: rgba(255, 253, 248, 0.85);
+      background: var(--tab-surface);
       color: var(--muted);
       padding: 10px 16px;
       border-radius: 999px;
@@ -528,12 +668,35 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
 
     .hero,
     .content-card {{
+      position: relative;
+      z-index: 1;
       background: var(--surface);
-      border: 1px solid rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--hero-border);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
       padding: 22px;
       margin-bottom: 20px;
+    }}
+
+    .hero {{
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr);
+      gap: 18px;
+      overflow: hidden;
+    }}
+
+    .hero::after {{
+      content: "";
+      position: absolute;
+      inset: auto -40px -60px auto;
+      width: 220px;
+      height: 220px;
+      background:
+        radial-gradient(circle at 35% 35%, var(--accent-soft-strong) 0 22%, transparent 24%),
+        radial-gradient(circle at 60% 60%, rgba(214, 163, 91, 0.14) 0 15%, transparent 18%);
+      transform: rotate(-10deg);
+      opacity: 0.9;
+      pointer-events: none;
     }}
 
     .eyebrow {{
@@ -543,6 +706,19 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
       text-transform: uppercase;
       font-size: 12px;
       font-weight: 700;
+    }}
+
+    .hero-tag {{
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
     }}
 
     h1, h2, h3 {{
@@ -573,6 +749,11 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
       max-width: 760px;
     }}
 
+    .hero-summary-soft {{
+      font-size: 17px;
+      line-height: 1.85;
+    }}
+
     .hero-meta {{
       display: flex;
       flex-wrap: wrap;
@@ -598,11 +779,48 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
       gap: 8px;
     }}
 
+    .hero-side {{
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }}
+
+    .hero-note {{
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72));
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+    }}
+
+    .hero-note p {{
+      margin: 8px 0 0;
+      color: var(--muted);
+    }}
+
+    .section-mini-label {{
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }}
+
+    .stats-section {{
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.68));
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+    }}
+
     .stats-grid,
     .day-grid {{
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 14px;
+    }}
+
+    .day-grid {{
       margin-bottom: 20px;
     }}
 
@@ -670,7 +888,7 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--muted);
-      background: rgba(255, 250, 242, 0.92);
+      background: var(--table-head);
       position: sticky;
       top: 0;
     }}
@@ -756,6 +974,10 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
         border-radius: 18px;
       }}
 
+      .hero {{
+        grid-template-columns: 1fr;
+      }}
+
       .topbar {{
         flex-direction: column;
         align-items: flex-start;
@@ -771,13 +993,13 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
   <main class="shell">
     <div class="topbar">
       <div><strong>{title}</strong></div>
-      <div>Generated: {generated_at}</div>
+      <div>{topbar_label} · {generated_prefix}: {generated_at}</div>
     </div>
     <nav class="tabs" aria-label="Travel dashboard tabs">
       {nav_html}
     </nav>
     {section_html}
-    <footer class="footer">Static local MVP dashboard for travel planning.</footer>
+    <footer class="footer">{footer}</footer>
   </main>
   <script>
     (function () {{
@@ -805,9 +1027,13 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
 </html>
 """.format(
         title=escape_text(trip.get("trip_name", "Travel Dashboard")),
+        theme_css=_build_theme_css(theme),
+        topbar_label=escape_text(theme["topbar_label"]),
+        generated_prefix=escape_text(theme["generated_prefix"]),
         generated_at=escape_text(generated_at),
         nav_html=nav_html,
         section_html=section_html,
+        footer=escape_text(theme["footer"]),
     )
 
     output_path.parent.mkdir(parents=True, exist_ok=True)

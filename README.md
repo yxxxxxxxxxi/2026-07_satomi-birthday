@@ -89,6 +89,15 @@ open output/travel_dashboard.html
 
 GitHub Pages 用の公開ファイルとして `output/index.html` と ルートの `index.html` も同時に生成されます。
 
+## トーン切り替え
+
+`config/trip.yaml` の `tone` を変えると、公開ページの配色、フォント、ヒーロー文言、フッター文言を切り替えられます。
+
+- `tone: professional` は情報整理寄りの落ち着いた見た目
+- `tone: couple` は夫婦旅行や誕生日旅向けの柔らかい見た目
+
+今回の設定では `tone: couple` を使っています。別の旅行で仕事寄りの文体に戻したいときは `professional` に変更して `python3 scripts/build_dashboard.py` を再実行してください。
+
 ## CSV の編集方法
 
 - `data/sightseeing_candidates.csv` の 1 行が 1 候補です
