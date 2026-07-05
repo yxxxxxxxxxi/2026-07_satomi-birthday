@@ -1,0 +1,9 @@
+[project]
+name = "satomi-birthday-travel-planning"
+version = "0.1.0"
+description = "Local MVP for planning a birthday trip with CSV, Markdown, and static HTML outputs."
+requires-python = ">=3.9"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
