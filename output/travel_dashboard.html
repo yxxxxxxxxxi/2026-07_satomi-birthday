@@ -163,6 +163,10 @@
       overflow: hidden;
     }
 
+    .hero-compact {
+      grid-template-columns: 1fr;
+    }
+
     .hero::after {
       content: "";
       position: absolute;
@@ -251,30 +255,6 @@
       color: var(--muted);
     }
 
-    .chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .hero-side {
-      display: grid;
-      gap: 14px;
-      align-content: start;
-    }
-
-    .hero-note {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72));
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      padding: 18px;
-    }
-
-    .hero-note p {
-      margin: 8px 0 0;
-      color: var(--muted);
-    }
-
     .section-mini-label {
       color: var(--accent);
       font-size: 12px;
@@ -284,17 +264,11 @@
       margin-bottom: 10px;
     }
 
-    .stats-section {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.68));
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      padding: 18px;
-    }
-
-    .stats-grid,
+    .status-strip,
+    .summary-grid,
     .day-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 14px;
     }
 
@@ -302,7 +276,8 @@
       margin-bottom: 20px;
     }
 
-    .stat-card,
+    .status-card,
+    .summary-card,
     .day-card {
       background: var(--surface-strong);
       border: 1px solid var(--line);
@@ -310,16 +285,39 @@
       padding: 18px;
     }
 
-    .stat-label {
+    .status-strip {
+      margin-top: 18px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .status-label {
       color: var(--muted);
       font-size: 13px;
       margin-bottom: 8px;
     }
 
-    .stat-value {
+    .status-value {
       font-family: var(--serif);
-      font-size: 34px;
+      font-size: 28px;
       color: var(--accent);
+    }
+
+    .summary-grid {
+      margin-top: 4px;
+    }
+
+    .summary-card h3 {
+      margin-bottom: 12px;
+    }
+
+    .summary-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .summary-list li + li {
+      margin-top: 8px;
     }
 
     .section-header {
@@ -415,6 +413,22 @@
       background: rgba(255, 255, 255, 0.55);
     }
 
+    .notes-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .notes-subsection {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.55);
+    }
+
+    .notes-subsection h3 {
+      margin-bottom: 12px;
+    }
+
     .map-frame-wrap {
       overflow: hidden;
       border-radius: var(--radius-lg);
@@ -460,6 +474,99 @@
       margin-bottom: 8px;
     }
 
+    .sightseeing-layout {
+      display: grid;
+      gap: 18px;
+    }
+
+    .sightseeing-block,
+    .area-card,
+    .spot-card {
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+    }
+
+    .sightseeing-block {
+      padding: 18px;
+    }
+
+    .sightseeing-block-confirmed {
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 246, 241, 0.9));
+      box-shadow: inset 0 0 0 1px rgba(213, 106, 124, 0.08);
+    }
+
+    .area-grid,
+    .spot-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .area-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .area-card {
+      padding: 18px;
+    }
+
+    .area-card-head,
+    .spot-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .area-days,
+    .spot-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .spot-card {
+      padding: 16px;
+    }
+
+    .spot-title {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .spot-subtitle,
+    .spot-source-empty {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .spot-source {
+      flex-shrink: 0;
+    }
+
+    .spot-source-link {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .spot-chip-row {
+      margin: 12px 0 10px;
+    }
+
+    .chip-day,
+    .chip-stay,
+    .chip-day-outline {
+      font-size: 12px;
+    }
+
+    .chip-day-outline {
+      background: rgba(255, 255, 255, 0.84);
+    }
+
     .candidate-memo {
       margin: 0;
       color: var(--muted);
@@ -488,6 +595,15 @@
         grid-template-columns: 1fr;
       }
 
+      .status-strip,
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .area-grid {
+        grid-template-columns: 1fr;
+      }
+
       .topbar {
         flex-direction: column;
         align-items: flex-start;
@@ -502,6 +618,11 @@
         min-height: 420px;
         height: 420px;
       }
+
+      .area-card-head,
+      .spot-card-top {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -509,32 +630,12 @@
   <main class="shell">
     <div class="topbar">
       <div><strong>2026年7月_理実誕生日旅行</strong></div>
-      <div>Couple itinerary · Updated: 2026-07-05 15:37</div>
+      <div>Couple itinerary · Updated: 2026-07-05 16:50</div>
     </div>
     <nav class="tabs" aria-label="Travel dashboard tabs">
       <button class="tab-button is-active" data-tab="overview">概要</button><button class="tab-button" data-tab="map">地図</button><button class="tab-button" data-tab="itinerary">旅程表</button><button class="tab-button" data-tab="sightseeing">観光候補</button><button class="tab-button" data-tab="hotels">宿泊候補</button><button class="tab-button" data-tab="restaurants">食事候補</button><button class="tab-button" data-tab="transport">移動</button><button class="tab-button" data-tab="budget">予算</button><button class="tab-button" data-tab="reservations">予約・ToDo</button><button class="tab-button" data-tab="birthday">誕生日演出</button><button class="tab-button" data-tab="notes">メモ</button>
     </nav>
-    <section id="overview" class="tab-panel is-active"><section class="hero"><div class="hero-copy"><p class="eyebrow">Anniversary Escape</p><div class="hero-tag">FOR THE TWO OF US</div><h1>2026年7月_理実誕生日旅行</h1><p class="hero-summary hero-summary-soft">広島から山陰までを3泊4日でめぐりながら、景色と食事と温泉をゆっくり味わう誕生日旅にする。</p><div class="hero-meta"><span>広島 / 宮島 / 尾道 / 出雲 / 松江 / 玉造温泉</span><span>2026-07-18 - 2026-07-21</span><span>3泊4日</span></div><div class="chip-row"><span class="chip">移動の無理がないこと</span><span class="chip">暑さ対策</span><span class="chip">景色</span><span class="chip">食事</span><span class="chip">宿</span><span class="chip">誕生日演出</span></div></div><div class="hero-side"><section class="stats-section"><div class="section-mini-label">ふたりの旅メモ</div><div class="stats-grid"><article class="stat-card"><div class="stat-label">候補総数</div><div class="stat-value">20</div></article><article class="stat-card"><div class="stat-label">優先度S</div><div class="stat-value">5</div></article><article class="stat-card"><div class="stat-label">雨天対応可</div><div class="stat-value">16</div></article><article class="stat-card"><div class="stat-label">誕生日向き4以上</div><div class="stat-value">14</div></article></div></section><div class="hero-note"><div class="section-mini-label">この旅で大事にしたいこと</div><p>夫婦でゆっくり楽しめる、誕生日感のある旅行を計画する</p></div></div></section><section class="content-card content-card-overview"><h1>概要</h1>
-<ul>
-<li>旅行名: 2026年7月_理実誕生日旅行</li>
-<li>日程: 2026-07-18 から 2026-07-21 の 3泊4日</li>
-<li>行き先: 広島、宮島、尾道、出雲、松江、玉造温泉</li>
-<li>目的: ふたりで無理なく移動しながら、景色とごはんと温泉をちゃんと楽しめる誕生日旅にする</li>
-</ul>
-<h2>旅の空気感</h2>
-<ul>
-<li>あわただしく詰め込まず、移動のしんどさを残さないこと</li>
-<li>7月の暑さを避けつつ、景色のいい時間帯を上手く使うこと</li>
-<li>食事と宿で「来てよかった」と思える余白をつくること</li>
-<li>誕生日らしい小さな特別感を、自然に一日の中へ入れること</li>
-</ul>
-<h2>いま考えていること</h2>
-<ul>
-<li>絶景と温泉の比重を少し高めにして、夏でも気持ちよく過ごせる流れにする</li>
-<li>屋外が続きすぎないよう、暑い時間帯は屋内やカフェ休憩を差し込みやすくしておく</li>
-<li>山陰側は移動時間が長くなりやすいので、見る場所を絞ってゆったり動く</li>
-</ul></section></section><section id="map" class="tab-panel"><section class="content-card"><div class="section-header"><h2>地図</h2></div><div class="section-copy"><p>Google My Maps の埋め込み表示です。位置関係の確認はここ、細かい編集は My Maps 側で行います。</p><ul><li>ピン色やアイコン変更は My Maps 側のスタイル編集で行います。</li><li>閲覧できない場合は地図の共有設定を確認してください。</li></ul></div><div class="section-body"><div class="map-frame-wrap"><iframe class="map-frame" src="https://www.google.com/maps/d/embed?mid=1u1mFZ5mAd8fxwiH_t1S5K0g37RC7WN0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div><div class="map-links"><a class="map-link-button" href="https://www.google.com/maps/d/viewer?mid=1u1mFZ5mAd8fxwiH_t1S5K0g37RC7WN0" target="_blank" rel="noreferrer">Google My Mapsで開く</a></div></div></section></section><section id="itinerary" class="tab-panel"><section class="content-card"><div class="section-header"><h2>旅程表</h2></div><div class="section-copy"><h1>旅程表</h1>
-<h2>Day1</h2>
+    <section id="overview" class="tab-panel is-active"><section class="hero hero-compact"><div class="hero-copy"><p class="eyebrow">Anniversary Escape</p><div class="hero-tag">FOR THE TWO OF US</div><h1>2026年7月_理実誕生日旅行</h1><p class="hero-summary hero-summary-soft">広島から山陰までを3泊4日でめぐりながら、景色と食事と温泉をゆっくり味わう誕生日旅にする。</p><div class="hero-meta"><span>広島 / 宮島 / 尾道 / 出雲 / 松江 / 玉造温泉</span><span>2026-07-18 - 2026-07-21</span><span>3泊4日</span></div><div class="status-strip"><article class="status-card"><div class="status-label">宿</div><div class="status-value">未登録</div></article><article class="status-card"><div class="status-label">食事</div><div class="status-value">未登録</div></article><article class="status-card"><div class="status-label">予約</div><div class="status-value">4件</div></article></div></div></section><section class="content-card content-card-overview"><div class="section-header"><h2>トップで見ること</h2></div><div class="section-copy"><p>スマホで最初に確認するための要点だけを並べています。詳しい比較やメモは各タブで確認します。</p></div><section class="summary-grid"><article class="summary-card"><h3>旅程の主役</h3><ul class="summary-list"><li>Day2: 嚴島神社 / 宮島 表参道商店街</li><li>Day3: 出雲大社 / 宍道湖夕日スポット</li><li>Day4: 玉造温泉 / 足立美術館</li></ul></article><article class="summary-card"><h3>今決めること</h3><ul class="summary-list"><li>宿は未登録。玉造温泉寄せか松江中心かを比較する</li><li>誕生日ディナー候補は未登録。予約要否を整理する</li><li>足立美術館の開館時間と休館日確認</li><li>嚴島神社周辺の混雑時間を確認</li></ul></article><article class="summary-card"><h3>誕生日の軸</h3><ul class="summary-list"><li>宍道湖の夕日を、天気が合えばそのまま誕生日のハイライトに使えるようにしておく</li><li>温泉宿でケーキや花、レイトチェックアウトができるなら早めに確認しておく</li><li>景色のいい夕食か、落ち着いて話せる個室ディナーを1つは本命候補として持っておく</li></ul></article><article class="summary-card"><h3>暑さ・雨の逃げ先</h3><ul class="summary-list"><li>玉造温泉: 宿泊地の有力候補。誕生日演出と相性が良い</li><li>足立美術館: 暑さを避けつつ特別感を出しやすい</li><li>ぐるっと松江堀川めぐり: 暑さ回避しながら景観を楽しめる</li></ul></article><article class="summary-card"><h3>移動で守ること</h3><ul class="summary-list"><li>長距離移動は連続観光の合間ではなく、朝かチェックアウト直後に寄せる</li><li>真夏の徒歩移動は 15 分を超えると負荷が大きい前提で見る</li></ul></article></section></section></section><section id="map" class="tab-panel"><section class="content-card"><div class="section-header"><h2>地図</h2></div><div class="section-copy"><p>Google My Maps の埋め込み表示です。位置関係の確認はここ、細かい編集は My Maps 側で行います。</p><ul><li>ピン色やアイコン変更は My Maps 側のスタイル編集で行います。</li><li>閲覧できない場合は地図の共有設定を確認してください。</li></ul></div><div class="section-body"><div class="map-frame-wrap"><iframe class="map-frame" src="https://www.google.com/maps/d/embed?mid=1u1mFZ5mAd8fxwiH_t1S5K0g37RC7WN0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div><div class="map-links"><a class="map-link-button" href="https://www.google.com/maps/d/viewer?mid=1u1mFZ5mAd8fxwiH_t1S5K0g37RC7WN0" target="_blank" rel="noreferrer">Google My Mapsで開く</a></div></div></section></section><section id="itinerary" class="tab-panel"><section class="content-card"><div class="section-header"><h2>旅程表</h2></div><div class="section-copy"><h2>Day1</h2>
 <ul>
 <li>広島市内に着いたら、まずは移動疲れをためないペースでスタート</li>
 <li>平和記念公園や原爆ドームは、暑さと体力を見ながら静かに回る</li>
@@ -554,36 +655,46 @@
 <ul>
 <li>松江城、堀川めぐり、美術館の候補を、その日の気分で無理なく絞る</li>
 <li>帰路まで余白があれば、玉造温泉のまわりを少し歩いて旅の締めにする</li>
-</ul></div><div class="section-body"><section class="day-grid"><article class="day-card"><h3>Day1</h3><ul class="candidate-list"><li><div class="candidate-name">原爆ドーム</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-mid">3/5</span></div><p class="candidate-memo">平和記念公園とセットで短時間見学</p></li><li><div class="candidate-name">広島平和記念公園</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-mid">3/5</span></div><p class="candidate-memo">朝か夕方寄りに回す</p></li></ul></article><article class="day-card"><h3>Day2</h3><ul class="candidate-list"><li><div class="candidate-name">宮島 表参道商店街</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-good">可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">食べ歩きと休憩を入れやすい</p></li><li><div class="candidate-name">尾道 千光寺公園</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">ロープウェイ利用で暑さ負荷を下げたい</p></li><li><div class="candidate-name">しまなみ海道</div><div class="candidate-badges"><span class="badge badge-priority-b">B</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-bad">不可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">全線ではなく展望地点を絞る必要あり</p></li><li><div class="candidate-name">猫の細道</div><div class="candidate-badges"><span class="badge badge-priority-b">B</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-mid">3/5</span></div><p class="candidate-memo">坂道と暑さに注意</p></li><li><div class="candidate-name">嚴島神社</div><div class="candidate-badges"><span class="badge badge-priority-s">S</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-high">5/5</span></div><p class="candidate-memo">混雑回避のため朝寄りが良い</p></li></ul></article><article class="day-card"><h3>Day3</h3><ul class="candidate-list"><li><div class="candidate-name">稲佐の浜</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-bad">不可</span><span class="badge badge-birthday-high">5/5</span></div><p class="candidate-memo">夕景候補。暑さと日差しに注意</p></li><li><div class="candidate-name">日御碕灯台</div><div class="candidate-badges"><span class="badge badge-priority-b">B</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-bad">不可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">海沿いで日差しが強い</p></li><li><div class="candidate-name">日御碕神社</div><div class="candidate-badges"><span class="badge badge-priority-b">B</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-mid">3/5</span></div><p class="candidate-memo">出雲大社からの導線を確認したい</p></li><li><div class="candidate-name">木綿街道</div><div class="candidate-badges"><span class="badge badge-priority-b">B</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-mid">3/5</span></div><p class="candidate-memo">町並み散策枠。暑さ次第で滞在短縮</p></li><li><div class="candidate-name">出雲大社</div><div class="candidate-badges"><span class="badge badge-priority-s">S</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-high">5/5</span></div><p class="candidate-memo">旅のハイライト候補。午前訪問が無難</p></li><li><div class="candidate-name">宍道湖夕日スポット</div><div class="candidate-badges"><span class="badge badge-priority-s">S</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-bad">不可</span><span class="badge badge-birthday-high">5/5</span></div><p class="candidate-memo">天気が合えば誕生日向けの主力候補</p></li></ul></article><article class="day-card"><h3>Day4</h3><ul class="candidate-list"><li><div class="candidate-name">ぐるっと松江堀川めぐり</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-low">低</span><span class="badge badge-rain-good">可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">暑さ回避しながら景観を楽しめる</p></li><li><div class="candidate-name">島根県立美術館</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-low">低</span><span class="badge badge-rain-good">可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">猛暑や雨天の逃げ先として強い</p></li><li><div class="candidate-name">松江城</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">周辺散策とセットで調整</p></li><li><div class="candidate-name">八重垣神社</div><div class="candidate-badges"><span class="badge badge-priority-b">B</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">縁結び文脈で誕生日旅行と相性あり</p></li><li><div class="candidate-name">玉造温泉</div><div class="candidate-badges"><span class="badge badge-priority-s">S</span><span class="badge badge-heat-low">低</span><span class="badge badge-rain-good">可</span><span class="badge badge-birthday-high">5/5</span></div><p class="candidate-memo">宿泊地の有力候補。誕生日演出と相性が良い</p></li><li><div class="candidate-name">足立美術館</div><div class="candidate-badges"><span class="badge badge-priority-s">S</span><span class="badge badge-heat-low">低</span><span class="badge badge-rain-good">可</span><span class="badge badge-birthday-high">5/5</span></div><p class="candidate-memo">暑さを避けつつ特別感を出しやすい</p></li></ul></article><article class="day-card"><h3>未定</h3><ul class="candidate-list"><li><div class="candidate-name">石見銀山</div><div class="candidate-badges"><span class="badge badge-priority-c">C</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-mid">3/5</span></div><p class="candidate-memo">今回日程では優先度低めだが候補として保持</p></li></ul></article></section></div></section></section><section id="sightseeing" class="tab-panel"><section class="content-card"><div class="section-header"><h2>観光候補</h2></div><div class="section-copy"><h1>観光候補</h1>
-<ul>
+</ul></div><div class="section-body"><section class="day-grid"><article class="day-card"><h3>Day1</h3><ul class="candidate-list"><li><div class="candidate-name">原爆ドーム</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-mid">3/5</span></div><p class="candidate-memo">平和記念公園とセットで短時間見学</p></li><li><div class="candidate-name">広島平和記念公園</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-mid">3/5</span></div><p class="candidate-memo">朝か夕方寄りに回す</p></li></ul></article><article class="day-card"><h3>Day2</h3><ul class="candidate-list"><li><div class="candidate-name">宮島 表参道商店街</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-good">可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">食べ歩きと休憩を入れやすい</p></li><li><div class="candidate-name">尾道 千光寺公園</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">ロープウェイ利用で暑さ負荷を下げたい</p></li><li><div class="candidate-name">しまなみ海道</div><div class="candidate-badges"><span class="badge badge-priority-b">B</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-bad">不可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">全線ではなく展望地点を絞る必要あり</p></li><li><div class="candidate-name">猫の細道</div><div class="candidate-badges"><span class="badge badge-priority-b">B</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-mid">3/5</span></div><p class="candidate-memo">坂道と暑さに注意</p></li><li><div class="candidate-name">嚴島神社</div><div class="candidate-badges"><span class="badge badge-priority-s">S</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-high">5/5</span></div><p class="candidate-memo">混雑回避のため朝寄りが良い</p></li></ul></article><article class="day-card"><h3>Day3</h3><ul class="candidate-list"><li><div class="candidate-name">稲佐の浜</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-bad">不可</span><span class="badge badge-birthday-high">5/5</span></div><p class="candidate-memo">夕景候補。暑さと日差しに注意</p></li><li><div class="candidate-name">日御碕灯台</div><div class="candidate-badges"><span class="badge badge-priority-b">B</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-bad">不可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">海沿いで日差しが強い</p></li><li><div class="candidate-name">日御碕神社</div><div class="candidate-badges"><span class="badge badge-priority-b">B</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-mid">3/5</span></div><p class="candidate-memo">出雲大社からの導線を確認したい</p></li><li><div class="candidate-name">木綿街道</div><div class="candidate-badges"><span class="badge badge-priority-b">B</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-mid">3/5</span></div><p class="candidate-memo">町並み散策枠。暑さ次第で滞在短縮</p></li><li><div class="candidate-name">出雲大社</div><div class="candidate-badges"><span class="badge badge-priority-s">S</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-high">5/5</span></div><p class="candidate-memo">旅のハイライト候補。午前訪問が無難</p></li><li><div class="candidate-name">宍道湖夕日スポット</div><div class="candidate-badges"><span class="badge badge-priority-s">S</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-bad">不可</span><span class="badge badge-birthday-high">5/5</span></div><p class="candidate-memo">天気が合えば誕生日向けの主力候補</p></li></ul></article><article class="day-card"><h3>Day4</h3><ul class="candidate-list"><li><div class="candidate-name">ぐるっと松江堀川めぐり</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-low">低</span><span class="badge badge-rain-good">可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">暑さ回避しながら景観を楽しめる</p></li><li><div class="candidate-name">島根県立美術館</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-low">低</span><span class="badge badge-rain-good">可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">猛暑や雨天の逃げ先として強い</p></li><li><div class="candidate-name">松江城</div><div class="candidate-badges"><span class="badge badge-priority-a">A</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">周辺散策とセットで調整</p></li><li><div class="candidate-name">八重垣神社</div><div class="candidate-badges"><span class="badge badge-priority-b">B</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-high">4/5</span></div><p class="candidate-memo">縁結び文脈で誕生日旅行と相性あり</p></li><li><div class="candidate-name">玉造温泉</div><div class="candidate-badges"><span class="badge badge-priority-s">S</span><span class="badge badge-heat-low">低</span><span class="badge badge-rain-good">可</span><span class="badge badge-birthday-high">5/5</span></div><p class="candidate-memo">宿泊地の有力候補。誕生日演出と相性が良い</p></li><li><div class="candidate-name">足立美術館</div><div class="candidate-badges"><span class="badge badge-priority-s">S</span><span class="badge badge-heat-low">低</span><span class="badge badge-rain-good">可</span><span class="badge badge-birthday-high">5/5</span></div><p class="candidate-memo">暑さを避けつつ特別感を出しやすい</p></li></ul></article><article class="day-card"><h3>未定</h3><ul class="candidate-list"><li><div class="candidate-name">石見銀山</div><div class="candidate-badges"><span class="badge badge-priority-c">C</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span><span class="badge badge-birthday-mid">3/5</span></div><p class="candidate-memo">今回日程では優先度低めだが候補として保持</p></li></ul></article></section></div></section></section><section id="sightseeing" class="tab-panel"><section class="content-card"><div class="section-header"><h2>観光候補</h2></div><div class="section-copy"><ul>
 <li>CSV 管理が主データです</li>
 <li>誕生日スコア、暑さリスク、雨天対応を見ながら優先順位を更新します</li>
 <li>屋外候補は午前か夕方に寄せる前提で判断します</li>
-</ul></div><div class="section-body"><div class="table-wrap"><table class="data-table"><thead><tr><th>名称</th><th>エリア</th><th>カテゴリ</th><th>優先度</th><th>日程候補</th><th>滞在分</th><th>誕生日向き</th><th>暑さ</th><th>雨天</th><th>メモ</th><th>情報源</th></tr></thead><tbody><tr><td>出雲大社</td><td>出雲</td><td>神社</td><td><span class="badge badge-priority-s">S</span></td><td>Day3</td><td>90</td><td><span class="badge badge-birthday-high">5/5</span></td><td><span class="badge badge-heat-mid">中</span></td><td><span class="badge badge-rain-mid">一部可</span></td><td>旅のハイライト候補。午前訪問が無難</td><td><a href="https://izumooyashiro.or.jp/" target="_blank" rel="noreferrer">link</a></td></tr><tr><td>稲佐の浜</td><td>出雲</td><td>絶景</td><td><span class="badge badge-priority-a">A</span></td><td>Day3</td><td>30</td><td><span class="badge badge-birthday-high">5/5</span></td><td><span class="badge badge-heat-high">高</span></td><td><span class="badge badge-rain-bad">不可</span></td><td>夕景候補。暑さと日差しに注意</td><td>未登録</td></tr><tr><td>玉造温泉</td><td>玉造</td><td>温泉</td><td><span class="badge badge-priority-s">S</span></td><td>Day4</td><td>120</td><td><span class="badge badge-birthday-high">5/5</span></td><td><span class="badge badge-heat-low">低</span></td><td><span class="badge badge-rain-good">可</span></td><td>宿泊地の有力候補。誕生日演出と相性が良い</td><td>未登録</td></tr><tr><td>嚴島神社</td><td>宮島</td><td>神社</td><td><span class="badge badge-priority-s">S</span></td><td>Day2</td><td>75</td><td><span class="badge badge-birthday-high">5/5</span></td><td><span class="badge badge-heat-mid">中</span></td><td><span class="badge badge-rain-mid">一部可</span></td><td>混雑回避のため朝寄りが良い</td><td><a href="https://www.itsukushimajinja.jp/" target="_blank" rel="noreferrer">link</a></td></tr><tr><td>宮島 表参道商店街</td><td>宮島</td><td>街歩き</td><td><span class="badge badge-priority-a">A</span></td><td>Day2</td><td>60</td><td><span class="badge badge-birthday-high">4/5</span></td><td><span class="badge badge-heat-mid">中</span></td><td><span class="badge badge-rain-good">可</span></td><td>食べ歩きと休憩を入れやすい</td><td>未登録</td></tr><tr><td>宍道湖夕日スポット</td><td>松江</td><td>絶景</td><td><span class="badge badge-priority-s">S</span></td><td>Day3</td><td>45</td><td><span class="badge badge-birthday-high">5/5</span></td><td><span class="badge badge-heat-mid">中</span></td><td><span class="badge badge-rain-bad">不可</span></td><td>天気が合えば誕生日向けの主力候補</td><td>未登録</td></tr><tr><td>島根県立美術館</td><td>松江</td><td>美術館</td><td><span class="badge badge-priority-a">A</span></td><td>Day4</td><td>90</td><td><span class="badge badge-birthday-high">4/5</span></td><td><span class="badge badge-heat-low">低</span></td><td><span class="badge badge-rain-good">可</span></td><td>猛暑や雨天の逃げ先として強い</td><td><a href="https://www.shimane-art-museum.jp/" target="_blank" rel="noreferrer">link</a></td></tr><tr><td>松江城</td><td>松江</td><td>城</td><td><span class="badge badge-priority-a">A</span></td><td>Day4</td><td>75</td><td><span class="badge badge-birthday-high">4/5</span></td><td><span class="badge badge-heat-mid">中</span></td><td><span class="badge badge-rain-mid">一部可</span></td><td>周辺散策とセットで調整</td><td>未登録</td></tr><tr><td>ぐるっと松江堀川めぐり</td><td>松江</td><td>体験</td><td><span class="badge badge-priority-a">A</span></td><td>Day4</td><td>50</td><td><span class="badge badge-birthday-high">4/5</span></td><td><span class="badge badge-heat-low">低</span></td><td><span class="badge badge-rain-good">可</span></td><td>暑さ回避しながら景観を楽しめる</td><td>未登録</td></tr><tr><td>広島平和記念公園</td><td>広島市内</td><td>公園</td><td><span class="badge badge-priority-a">A</span></td><td>Day1</td><td>60</td><td><span class="badge badge-birthday-mid">3/5</span></td><td><span class="badge badge-heat-high">高</span></td><td><span class="badge badge-rain-mid">一部可</span></td><td>朝か夕方寄りに回す</td><td><a href="https://hpmmuseum.jp/" target="_blank" rel="noreferrer">link</a></td></tr><tr><td>原爆ドーム</td><td>広島市内</td><td>史跡</td><td><span class="badge badge-priority-a">A</span></td><td>Day1</td><td>30</td><td><span class="badge badge-birthday-mid">3/5</span></td><td><span class="badge badge-heat-high">高</span></td><td><span class="badge badge-rain-mid">一部可</span></td><td>平和記念公園とセットで短時間見学</td><td><a href="https://hpmmuseum.jp/modules/exhibition/index.php?action=PageView&amp;page_id=16" target="_blank" rel="noreferrer">link</a></td></tr><tr><td>尾道 千光寺公園</td><td>尾道</td><td>絶景</td><td><span class="badge badge-priority-a">A</span></td><td>Day2</td><td>70</td><td><span class="badge badge-birthday-high">4/5</span></td><td><span class="badge badge-heat-high">高</span></td><td><span class="badge badge-rain-mid">一部可</span></td><td>ロープウェイ利用で暑さ負荷を下げたい</td><td>未登録</td></tr><tr><td>猫の細道</td><td>尾道</td><td>街歩き</td><td><span class="badge badge-priority-b">B</span></td><td>Day2</td><td>40</td><td><span class="badge badge-birthday-mid">3/5</span></td><td><span class="badge badge-heat-high">高</span></td><td><span class="badge badge-rain-mid">一部可</span></td><td>坂道と暑さに注意</td><td>未登録</td></tr><tr><td>足立美術館</td><td>安来</td><td>美術館</td><td><span class="badge badge-priority-s">S</span></td><td>Day4</td><td>120</td><td><span class="badge badge-birthday-high">5/5</span></td><td><span class="badge badge-heat-low">低</span></td><td><span class="badge badge-rain-good">可</span></td><td>暑さを避けつつ特別感を出しやすい</td><td><a href="https://www.adachi-museum.or.jp/" target="_blank" rel="noreferrer">link</a></td></tr><tr><td>日御碕灯台</td><td>出雲</td><td>絶景</td><td><span class="badge badge-priority-b">B</span></td><td>Day3</td><td>35</td><td><span class="badge badge-birthday-high">4/5</span></td><td><span class="badge badge-heat-high">高</span></td><td><span class="badge badge-rain-bad">不可</span></td><td>海沿いで日差しが強い</td><td>未登録</td></tr><tr><td>日御碕神社</td><td>出雲</td><td>神社</td><td><span class="badge badge-priority-b">B</span></td><td>Day3</td><td>40</td><td><span class="badge badge-birthday-mid">3/5</span></td><td><span class="badge badge-heat-mid">中</span></td><td><span class="badge badge-rain-mid">一部可</span></td><td>出雲大社からの導線を確認したい</td><td>未登録</td></tr><tr><td>八重垣神社</td><td>松江</td><td>神社</td><td><span class="badge badge-priority-b">B</span></td><td>Day4</td><td>45</td><td><span class="badge badge-birthday-high">4/5</span></td><td><span class="badge badge-heat-mid">中</span></td><td><span class="badge badge-rain-mid">一部可</span></td><td>縁結び文脈で誕生日旅行と相性あり</td><td>未登録</td></tr><tr><td>木綿街道</td><td>出雲</td><td>街歩き</td><td><span class="badge badge-priority-b">B</span></td><td>Day3</td><td>60</td><td><span class="badge badge-birthday-mid">3/5</span></td><td><span class="badge badge-heat-mid">中</span></td><td><span class="badge badge-rain-mid">一部可</span></td><td>町並み散策枠。暑さ次第で滞在短縮</td><td>未登録</td></tr><tr><td>しまなみ海道</td><td>尾道</td><td>絶景</td><td><span class="badge badge-priority-b">B</span></td><td>Day2</td><td>120</td><td><span class="badge badge-birthday-high">4/5</span></td><td><span class="badge badge-heat-high">高</span></td><td><span class="badge badge-rain-bad">不可</span></td><td>全線ではなく展望地点を絞る必要あり</td><td>未登録</td></tr><tr><td>石見銀山</td><td>大田</td><td>史跡</td><td><span class="badge badge-priority-c">C</span></td><td>未定</td><td>150</td><td><span class="badge badge-birthday-mid">3/5</span></td><td><span class="badge badge-heat-high">高</span></td><td><span class="badge badge-rain-mid">一部可</span></td><td>今回日程では優先度低めだが候補として保持</td><td><a href="https://ginzan.city.ohda.lg.jp/" target="_blank" rel="noreferrer">link</a></td></tr></tbody></table></div></div></section></section><section id="hotels" class="tab-panel"><section class="content-card"><div class="section-header"><h2>宿泊候補</h2></div><div class="section-copy"><h1>宿泊候補</h1>
-<p>未登録</p></div><div class="section-body"><div class="empty-state">未登録</div></div></section></section><section id="restaurants" class="tab-panel"><section class="content-card"><div class="section-header"><h2>食事候補</h2></div><div class="section-copy"><h1>食事候補</h1>
-<p>未登録</p></div><div class="section-body"><div class="empty-state">未登録</div></div></section></section><section id="transport" class="tab-panel"><section class="content-card"><div class="section-header"><h2>移動</h2></div><div class="section-copy"><h1>移動</h1>
-<ul>
+</ul></div><div class="section-body"><div class="sightseeing-layout"><section class="sightseeing-block sightseeing-block-confirmed"><div class="section-mini-label">Confirmed</div><h3>現時点で確定</h3><div class="spot-grid"><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">嚴島神社</div><div class="spot-subtitle">宮島 ・ 神社</div></div><div class="spot-source"><a class="spot-source-link" href="https://www.itsukushimajinja.jp/" target="_blank" rel="noreferrer">情報源</a></div></div><div class="spot-chip-row"><span class="chip chip-day">Day2</span><span class="chip chip-stay">75分</span><span class="badge badge-priority-s">S</span><span class="badge badge-birthday-high">5/5</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span></div><p class="candidate-memo">混雑回避のため朝寄りが良い</p></article><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">原爆ドーム</div><div class="spot-subtitle">広島市内 ・ 史跡</div></div><div class="spot-source"><a class="spot-source-link" href="https://hpmmuseum.jp/modules/exhibition/index.php?action=PageView&amp;page_id=16" target="_blank" rel="noreferrer">情報源</a></div></div><div class="spot-chip-row"><span class="chip chip-day">Day1</span><span class="chip chip-stay">30分</span><span class="badge badge-priority-a">A</span><span class="badge badge-birthday-mid">3/5</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span></div><p class="candidate-memo">平和記念公園とセットで短時間見学</p></article><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">出雲大社</div><div class="spot-subtitle">出雲 ・ 神社</div></div><div class="spot-source"><a class="spot-source-link" href="https://izumooyashiro.or.jp/" target="_blank" rel="noreferrer">情報源</a></div></div><div class="spot-chip-row"><span class="chip chip-day">Day3</span><span class="chip chip-stay">90分</span><span class="badge badge-priority-s">S</span><span class="badge badge-birthday-high">5/5</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span></div><p class="candidate-memo">旅のハイライト候補。午前訪問が無難</p></article></div></section><section class="area-grid"><article class="area-card"><div class="area-card-head"><div><div class="section-mini-label">Area</div><h3>出雲</h3></div><div class="area-days"><span class="chip chip-day-outline">Day3</span></div></div><div class="spot-grid"><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">稲佐の浜</div><div class="spot-subtitle">出雲 ・ 絶景</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day3</span><span class="chip chip-stay">30分</span><span class="badge badge-priority-a">A</span><span class="badge badge-birthday-high">5/5</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-bad">不可</span></div><p class="candidate-memo">夕景候補。暑さと日差しに注意</p></article><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">日御碕灯台</div><div class="spot-subtitle">出雲 ・ 絶景</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day3</span><span class="chip chip-stay">35分</span><span class="badge badge-priority-b">B</span><span class="badge badge-birthday-high">4/5</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-bad">不可</span></div><p class="candidate-memo">海沿いで日差しが強い</p></article><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">日御碕神社</div><div class="spot-subtitle">出雲 ・ 神社</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day3</span><span class="chip chip-stay">40分</span><span class="badge badge-priority-b">B</span><span class="badge badge-birthday-mid">3/5</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span></div><p class="candidate-memo">出雲大社からの導線を確認したい</p></article><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">木綿街道</div><div class="spot-subtitle">出雲 ・ 街歩き</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day3</span><span class="chip chip-stay">60分</span><span class="badge badge-priority-b">B</span><span class="badge badge-birthday-mid">3/5</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span></div><p class="candidate-memo">町並み散策枠。暑さ次第で滞在短縮</p></article></div></article><article class="area-card"><div class="area-card-head"><div><div class="section-mini-label">Area</div><h3>玉造</h3></div><div class="area-days"><span class="chip chip-day-outline">Day4</span></div></div><div class="spot-grid"><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">玉造温泉</div><div class="spot-subtitle">玉造 ・ 温泉</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day4</span><span class="chip chip-stay">120分</span><span class="badge badge-priority-s">S</span><span class="badge badge-birthday-high">5/5</span><span class="badge badge-heat-low">低</span><span class="badge badge-rain-good">可</span></div><p class="candidate-memo">宿泊地の有力候補。誕生日演出と相性が良い</p></article></div></article><article class="area-card"><div class="area-card-head"><div><div class="section-mini-label">Area</div><h3>宮島</h3></div><div class="area-days"><span class="chip chip-day-outline">Day2</span></div></div><div class="spot-grid"><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">宮島 表参道商店街</div><div class="spot-subtitle">宮島 ・ 街歩き</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day2</span><span class="chip chip-stay">60分</span><span class="badge badge-priority-a">A</span><span class="badge badge-birthday-high">4/5</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-good">可</span></div><p class="candidate-memo">食べ歩きと休憩を入れやすい</p></article></div></article><article class="area-card"><div class="area-card-head"><div><div class="section-mini-label">Area</div><h3>松江</h3></div><div class="area-days"><span class="chip chip-day-outline">Day3</span><span class="chip chip-day-outline">Day4</span></div></div><div class="spot-grid"><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">宍道湖夕日スポット</div><div class="spot-subtitle">松江 ・ 絶景</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day3</span><span class="chip chip-stay">45分</span><span class="badge badge-priority-s">S</span><span class="badge badge-birthday-high">5/5</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-bad">不可</span></div><p class="candidate-memo">天気が合えば誕生日向けの主力候補</p></article><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">ぐるっと松江堀川めぐり</div><div class="spot-subtitle">松江 ・ 体験</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day4</span><span class="chip chip-stay">50分</span><span class="badge badge-priority-a">A</span><span class="badge badge-birthday-high">4/5</span><span class="badge badge-heat-low">低</span><span class="badge badge-rain-good">可</span></div><p class="candidate-memo">暑さ回避しながら景観を楽しめる</p></article><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">島根県立美術館</div><div class="spot-subtitle">松江 ・ 美術館</div></div><div class="spot-source"><a class="spot-source-link" href="https://www.shimane-art-museum.jp/" target="_blank" rel="noreferrer">情報源</a></div></div><div class="spot-chip-row"><span class="chip chip-day">Day4</span><span class="chip chip-stay">90分</span><span class="badge badge-priority-a">A</span><span class="badge badge-birthday-high">4/5</span><span class="badge badge-heat-low">低</span><span class="badge badge-rain-good">可</span></div><p class="candidate-memo">猛暑や雨天の逃げ先として強い</p></article><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">松江城</div><div class="spot-subtitle">松江 ・ 城</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day4</span><span class="chip chip-stay">75分</span><span class="badge badge-priority-a">A</span><span class="badge badge-birthday-high">4/5</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span></div><p class="candidate-memo">周辺散策とセットで調整</p></article><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">八重垣神社</div><div class="spot-subtitle">松江 ・ 神社</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day4</span><span class="chip chip-stay">45分</span><span class="badge badge-priority-b">B</span><span class="badge badge-birthday-high">4/5</span><span class="badge badge-heat-mid">中</span><span class="badge badge-rain-mid">一部可</span></div><p class="candidate-memo">縁結び文脈で誕生日旅行と相性あり</p></article></div></article><article class="area-card"><div class="area-card-head"><div><div class="section-mini-label">Area</div><h3>広島市内</h3></div><div class="area-days"><span class="chip chip-day-outline">Day1</span></div></div><div class="spot-grid"><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">広島平和記念公園</div><div class="spot-subtitle">広島市内 ・ 公園</div></div><div class="spot-source"><a class="spot-source-link" href="https://hpmmuseum.jp/" target="_blank" rel="noreferrer">情報源</a></div></div><div class="spot-chip-row"><span class="chip chip-day">Day1</span><span class="chip chip-stay">60分</span><span class="badge badge-priority-a">A</span><span class="badge badge-birthday-mid">3/5</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span></div><p class="candidate-memo">朝か夕方寄りに回す</p></article></div></article><article class="area-card"><div class="area-card-head"><div><div class="section-mini-label">Area</div><h3>尾道</h3></div><div class="area-days"><span class="chip chip-day-outline">Day2</span></div></div><div class="spot-grid"><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">尾道 千光寺公園</div><div class="spot-subtitle">尾道 ・ 絶景</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day2</span><span class="chip chip-stay">70分</span><span class="badge badge-priority-a">A</span><span class="badge badge-birthday-high">4/5</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span></div><p class="candidate-memo">ロープウェイ利用で暑さ負荷を下げたい</p></article><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">しまなみ海道</div><div class="spot-subtitle">尾道 ・ 絶景</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day2</span><span class="chip chip-stay">120分</span><span class="badge badge-priority-b">B</span><span class="badge badge-birthday-high">4/5</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-bad">不可</span></div><p class="candidate-memo">全線ではなく展望地点を絞る必要あり</p></article><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">猫の細道</div><div class="spot-subtitle">尾道 ・ 街歩き</div></div><div class="spot-source"><span class="spot-source-empty">情報源未登録</span></div></div><div class="spot-chip-row"><span class="chip chip-day">Day2</span><span class="chip chip-stay">40分</span><span class="badge badge-priority-b">B</span><span class="badge badge-birthday-mid">3/5</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span></div><p class="candidate-memo">坂道と暑さに注意</p></article></div></article><article class="area-card"><div class="area-card-head"><div><div class="section-mini-label">Area</div><h3>安来</h3></div><div class="area-days"><span class="chip chip-day-outline">Day4</span></div></div><div class="spot-grid"><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">足立美術館</div><div class="spot-subtitle">安来 ・ 美術館</div></div><div class="spot-source"><a class="spot-source-link" href="https://www.adachi-museum.or.jp/" target="_blank" rel="noreferrer">情報源</a></div></div><div class="spot-chip-row"><span class="chip chip-day">Day4</span><span class="chip chip-stay">120分</span><span class="badge badge-priority-s">S</span><span class="badge badge-birthday-high">5/5</span><span class="badge badge-heat-low">低</span><span class="badge badge-rain-good">可</span></div><p class="candidate-memo">暑さを避けつつ特別感を出しやすい</p></article></div></article><article class="area-card"><div class="area-card-head"><div><div class="section-mini-label">Area</div><h3>大田</h3></div><div class="area-days"><span class="chip chip-day-outline">未定</span></div></div><div class="spot-grid"><article class="spot-card"><div class="spot-card-top"><div><div class="spot-title">石見銀山</div><div class="spot-subtitle">大田 ・ 史跡</div></div><div class="spot-source"><a class="spot-source-link" href="https://ginzan.city.ohda.lg.jp/" target="_blank" rel="noreferrer">情報源</a></div></div><div class="spot-chip-row"><span class="chip chip-day">未定</span><span class="chip chip-stay">150分</span><span class="badge badge-priority-c">C</span><span class="badge badge-birthday-mid">3/5</span><span class="badge badge-heat-high">高</span><span class="badge badge-rain-mid">一部可</span></div><p class="candidate-memo">今回日程では優先度低めだが候補として保持</p></article></div></article></section></div></div></section></section><section id="hotels" class="tab-panel"><section class="content-card"><div class="section-header"><h2>宿泊候補</h2></div><div class="section-copy"><p>未登録</p></div><div class="section-body"><div class="empty-state">未登録</div></div></section></section><section id="restaurants" class="tab-panel"><section class="content-card"><div class="section-header"><h2>食事候補</h2></div><div class="section-copy"><p>未登録</p></div><div class="section-body"><div class="empty-state">未登録</div></div></section></section><section id="transport" class="tab-panel"><section class="content-card"><div class="section-header"><h2>移動</h2></div><div class="section-copy"><ul>
 <li>長距離移動は連続観光の合間ではなく、朝かチェックアウト直後に寄せる</li>
 <li>真夏の徒歩移動は 15 分を超えると負荷が大きい前提で見る</li>
 <li>しまなみ海道や山陰移動は天候と渋滞を考慮して余白を残す</li>
-</ul></div><div class="section-body"><div class="empty-state">未登録</div></div></section></section><section id="budget" class="tab-panel"><section class="content-card"><div class="section-header"><h2>予算</h2></div><div class="section-copy"><h1>予算</h1>
-<p>未登録</p></div><div class="section-body"><div class="empty-state">未登録</div></div></section></section><section id="reservations" class="tab-panel"><section class="content-card"><div class="section-header"><h2>予約・ToDo</h2></div><div class="section-copy"><h1>予約・ToDo</h1>
-<ul>
+</ul></div><div class="section-body"><div class="empty-state">未登録</div></div></section></section><section id="budget" class="tab-panel"><section class="content-card"><div class="section-header"><h2>予算</h2></div><div class="section-copy"><p>未登録</p></div><div class="section-body"><div class="empty-state">未登録</div></div></section></section><section id="reservations" class="tab-panel"><section class="content-card"><div class="section-header"><h2>予約・ToDo</h2></div><div class="section-copy"><ul>
 <li>足立美術館の開館時間と休館日確認</li>
 <li>嚴島神社周辺の混雑時間を確認</li>
 <li>誕生日ディナー候補の予約要否を整理</li>
 <li>宿を玉造温泉に寄せるか、松江中心にするか比較</li>
-</ul></div><div class="section-body"><div class="table-wrap"><table class="data-table"><thead><tr><th>候補</th><th>日程候補</th><th>確認理由</th><th>メモ</th></tr></thead><tbody><tr><td>出雲大社</td><td>Day3</td><td>優先度S / 誕生日スコア高</td><td>旅のハイライト候補。午前訪問が無難</td></tr><tr><td>稲佐の浜</td><td>Day3</td><td>誕生日スコア高</td><td>夕景候補。暑さと日差しに注意</td></tr><tr><td>玉造温泉</td><td>Day4</td><td>事前予約確認向き / 優先度S / 誕生日スコア高</td><td>宿泊地の有力候補。誕生日演出と相性が良い</td></tr><tr><td>嚴島神社</td><td>Day2</td><td>優先度S / 誕生日スコア高</td><td>混雑回避のため朝寄りが良い</td></tr><tr><td>宍道湖夕日スポット</td><td>Day3</td><td>優先度S / 誕生日スコア高</td><td>天気が合えば誕生日向けの主力候補</td></tr><tr><td>島根県立美術館</td><td>Day4</td><td>事前予約確認向き</td><td>猛暑や雨天の逃げ先として強い</td></tr><tr><td>ぐるっと松江堀川めぐり</td><td>Day4</td><td>事前予約確認向き</td><td>暑さ回避しながら景観を楽しめる</td></tr><tr><td>足立美術館</td><td>Day4</td><td>事前予約確認向き / 優先度S / 誕生日スコア高</td><td>暑さを避けつつ特別感を出しやすい</td></tr></tbody></table></div></div></section></section><section id="birthday" class="tab-panel"><section class="content-card"><div class="section-header"><h2>誕生日演出</h2></div><div class="section-copy"><h1>誕生日演出</h1>
-<ul>
+</ul></div><div class="section-body"><div class="table-wrap"><table class="data-table"><thead><tr><th>候補</th><th>日程候補</th><th>確認理由</th><th>メモ</th></tr></thead><tbody><tr><td>出雲大社</td><td>Day3</td><td>優先度S / 誕生日スコア高</td><td>旅のハイライト候補。午前訪問が無難</td></tr><tr><td>稲佐の浜</td><td>Day3</td><td>誕生日スコア高</td><td>夕景候補。暑さと日差しに注意</td></tr><tr><td>玉造温泉</td><td>Day4</td><td>事前予約確認向き / 優先度S / 誕生日スコア高</td><td>宿泊地の有力候補。誕生日演出と相性が良い</td></tr><tr><td>嚴島神社</td><td>Day2</td><td>優先度S / 誕生日スコア高</td><td>混雑回避のため朝寄りが良い</td></tr><tr><td>宍道湖夕日スポット</td><td>Day3</td><td>優先度S / 誕生日スコア高</td><td>天気が合えば誕生日向けの主力候補</td></tr><tr><td>島根県立美術館</td><td>Day4</td><td>事前予約確認向き</td><td>猛暑や雨天の逃げ先として強い</td></tr><tr><td>ぐるっと松江堀川めぐり</td><td>Day4</td><td>事前予約確認向き</td><td>暑さ回避しながら景観を楽しめる</td></tr><tr><td>足立美術館</td><td>Day4</td><td>事前予約確認向き / 優先度S / 誕生日スコア高</td><td>暑さを避けつつ特別感を出しやすい</td></tr></tbody></table></div></div></section></section><section id="birthday" class="tab-panel"><section class="content-card"><div class="section-header"><h2>誕生日演出</h2></div><div class="section-copy"><ul>
 <li>宍道湖の夕日を、天気が合えばそのまま誕生日のハイライトに使えるようにしておく</li>
 <li>温泉宿でケーキや花、レイトチェックアウトができるなら早めに確認しておく</li>
 <li>景色のいい夕食か、落ち着いて話せる個室ディナーを1つは本命候補として持っておく</li>
-</ul></div><div class="section-body"><div class="table-wrap"><table class="data-table"><thead><tr><th>候補</th><th>エリア</th><th>優先度</th><th>誕生日向き</th><th>メモ</th></tr></thead><tbody><tr><td>稲佐の浜</td><td>出雲</td><td><span class="badge badge-priority-a">A</span></td><td><span class="badge badge-birthday-high">5/5</span></td><td>夕景候補。暑さと日差しに注意</td></tr><tr><td>出雲大社</td><td>出雲</td><td><span class="badge badge-priority-s">S</span></td><td><span class="badge badge-birthday-high">5/5</span></td><td>旅のハイライト候補。午前訪問が無難</td></tr><tr><td>嚴島神社</td><td>宮島</td><td><span class="badge badge-priority-s">S</span></td><td><span class="badge badge-birthday-high">5/5</span></td><td>混雑回避のため朝寄りが良い</td></tr><tr><td>宍道湖夕日スポット</td><td>松江</td><td><span class="badge badge-priority-s">S</span></td><td><span class="badge badge-birthday-high">5/5</span></td><td>天気が合えば誕生日向けの主力候補</td></tr><tr><td>玉造温泉</td><td>玉造</td><td><span class="badge badge-priority-s">S</span></td><td><span class="badge badge-birthday-high">5/5</span></td><td>宿泊地の有力候補。誕生日演出と相性が良い</td></tr><tr><td>足立美術館</td><td>安来</td><td><span class="badge badge-priority-s">S</span></td><td><span class="badge badge-birthday-high">5/5</span></td><td>暑さを避けつつ特別感を出しやすい</td></tr><tr><td>ぐるっと松江堀川めぐり</td><td>松江</td><td><span class="badge badge-priority-a">A</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>暑さ回避しながら景観を楽しめる</td></tr><tr><td>宮島 表参道商店街</td><td>宮島</td><td><span class="badge badge-priority-a">A</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>食べ歩きと休憩を入れやすい</td></tr><tr><td>尾道 千光寺公園</td><td>尾道</td><td><span class="badge badge-priority-a">A</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>ロープウェイ利用で暑さ負荷を下げたい</td></tr><tr><td>島根県立美術館</td><td>松江</td><td><span class="badge badge-priority-a">A</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>猛暑や雨天の逃げ先として強い</td></tr><tr><td>松江城</td><td>松江</td><td><span class="badge badge-priority-a">A</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>周辺散策とセットで調整</td></tr><tr><td>しまなみ海道</td><td>尾道</td><td><span class="badge badge-priority-b">B</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>全線ではなく展望地点を絞る必要あり</td></tr><tr><td>八重垣神社</td><td>松江</td><td><span class="badge badge-priority-b">B</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>縁結び文脈で誕生日旅行と相性あり</td></tr><tr><td>日御碕灯台</td><td>出雲</td><td><span class="badge badge-priority-b">B</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>海沿いで日差しが強い</td></tr></tbody></table></div></div></section></section><section id="notes" class="tab-panel"><section class="content-card"><div class="section-header"><h2>メモ</h2></div><div class="section-copy"><h1>メモ</h1>
-<ul>
+</ul></div><div class="section-body"><div class="table-wrap"><table class="data-table"><thead><tr><th>候補</th><th>エリア</th><th>優先度</th><th>誕生日向き</th><th>メモ</th></tr></thead><tbody><tr><td>稲佐の浜</td><td>出雲</td><td><span class="badge badge-priority-a">A</span></td><td><span class="badge badge-birthday-high">5/5</span></td><td>夕景候補。暑さと日差しに注意</td></tr><tr><td>出雲大社</td><td>出雲</td><td><span class="badge badge-priority-s">S</span></td><td><span class="badge badge-birthday-high">5/5</span></td><td>旅のハイライト候補。午前訪問が無難</td></tr><tr><td>嚴島神社</td><td>宮島</td><td><span class="badge badge-priority-s">S</span></td><td><span class="badge badge-birthday-high">5/5</span></td><td>混雑回避のため朝寄りが良い</td></tr><tr><td>宍道湖夕日スポット</td><td>松江</td><td><span class="badge badge-priority-s">S</span></td><td><span class="badge badge-birthday-high">5/5</span></td><td>天気が合えば誕生日向けの主力候補</td></tr><tr><td>玉造温泉</td><td>玉造</td><td><span class="badge badge-priority-s">S</span></td><td><span class="badge badge-birthday-high">5/5</span></td><td>宿泊地の有力候補。誕生日演出と相性が良い</td></tr><tr><td>足立美術館</td><td>安来</td><td><span class="badge badge-priority-s">S</span></td><td><span class="badge badge-birthday-high">5/5</span></td><td>暑さを避けつつ特別感を出しやすい</td></tr><tr><td>ぐるっと松江堀川めぐり</td><td>松江</td><td><span class="badge badge-priority-a">A</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>暑さ回避しながら景観を楽しめる</td></tr><tr><td>宮島 表参道商店街</td><td>宮島</td><td><span class="badge badge-priority-a">A</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>食べ歩きと休憩を入れやすい</td></tr><tr><td>尾道 千光寺公園</td><td>尾道</td><td><span class="badge badge-priority-a">A</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>ロープウェイ利用で暑さ負荷を下げたい</td></tr><tr><td>島根県立美術館</td><td>松江</td><td><span class="badge badge-priority-a">A</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>猛暑や雨天の逃げ先として強い</td></tr><tr><td>松江城</td><td>松江</td><td><span class="badge badge-priority-a">A</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>周辺散策とセットで調整</td></tr><tr><td>しまなみ海道</td><td>尾道</td><td><span class="badge badge-priority-b">B</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>全線ではなく展望地点を絞る必要あり</td></tr><tr><td>八重垣神社</td><td>松江</td><td><span class="badge badge-priority-b">B</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>縁結び文脈で誕生日旅行と相性あり</td></tr><tr><td>日御碕灯台</td><td>出雲</td><td><span class="badge badge-priority-b">B</span></td><td><span class="badge badge-birthday-high">4/5</span></td><td>海沿いで日差しが強い</td></tr></tbody></table></div></div></section></section><section id="notes" class="tab-panel"><section class="content-card"><div class="section-header"><h2>メモ</h2></div><div class="section-copy"><ul>
 <li>Day3 と Day4 に候補が集中しやすい</li>
 <li>真夏なので神社、灯台、海辺は滞在時間を短く設定する</li>
 <li>雨天時の代替として美術館、城、商店街、温泉を厚めに持つ</li>
-</ul></div><div class="section-body"><div class="inline-note">My Maps CSV 出力先: /Users/yuki/development/travel-planning/2026-07_satomi-birthday/output/mymaps_import.csv</div></div></section></section>
+</ul></div><div class="section-body"><div class="notes-stack"><div class="notes-subsection"><h3>旅の考え方</h3><ul>
+<li>旅行名: 2026年7月_理実誕生日旅行</li>
+<li>日程: 2026-07-18 から 2026-07-21 の 3泊4日</li>
+<li>行き先: 広島、宮島、尾道、出雲、松江、玉造温泉</li>
+<li>目的: ふたりで無理なく移動しながら、景色とごはんと温泉をちゃんと楽しめる誕生日旅にする</li>
+</ul>
+<h2>旅の空気感</h2>
+<ul>
+<li>あわただしく詰め込まず、移動のしんどさを残さないこと</li>
+<li>7月の暑さを避けつつ、景色のいい時間帯を上手く使うこと</li>
+<li>食事と宿で「来てよかった」と思える余白をつくること</li>
+<li>誕生日らしい小さな特別感を、自然に一日の中へ入れること</li>
+</ul>
+<h2>いま考えていること</h2>
+<ul>
+<li>絶景と温泉の比重を少し高めにして、夏でも気持ちよく過ごせる流れにする</li>
+<li>屋外が続きすぎないよう、暑い時間帯は屋内やカフェ休憩を差し込みやすくしておく</li>
+<li>山陰側は移動時間が長くなりやすいので、見る場所を絞ってゆったり動く</li>
+</ul></div><div class="inline-note">My Maps CSV 出力先: /Users/yuki/development/travel-planning/2026-07_satomi-birthday/output/mymaps_import.csv</div></div></div></section></section>
     <footer class="footer">A small keepsake site for planning a gentle birthday getaway together.</footer>
   </main>
   <script>
