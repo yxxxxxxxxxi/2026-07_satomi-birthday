@@ -372,6 +372,35 @@ def _build_section(title: str, doc_html: str, content_html: str) -> str:
         "</section>"
     ).format(escape_text(title), doc_html, content_html)
 
+def _build_map_embed_section(trip: Dict[str, object]) -> str:
+    view_url = str(trip.get("mymaps_view_url", "") or "")
+    embed_url = str(trip.get("mymaps_embed_url", "") or "")
+
+    if not embed_url:
+        return _build_section(
+            "地図",
+            "<p>Google My Maps の埋め込み URL が未設定です。</p>",
+            render_empty_state("地図未設定"),
+        )
+
+    content_html = (
+        '<div class="map-frame-wrap">'
+        '<iframe class="map-frame" src="{0}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>'
+        "</div>"
+        '<div class="map-links">'
+        '<a class="map-link-button" href="{1}" target="_blank" rel="noreferrer">Google My Mapsで開く</a>'
+        "</div>"
+    ).format(escape_text(embed_url), escape_text(view_url or embed_url))
+
+    doc_html = (
+        "<p>Google My Maps の埋め込み表示です。位置関係の確認はここ、細かい編集は My Maps 側で行います。</p>"
+        "<ul>"
+        "<li>ピン色やアイコン変更は My Maps 側のスタイル編集で行います。</li>"
+        "<li>閲覧できない場合は地図の共有設定を確認してください。</li>"
+        "</ul>"
+    )
+    return _build_section("地図", doc_html, content_html)
+
 
 def _build_theme_css(theme: Dict[str, str]) -> str:
     return """
@@ -418,6 +447,11 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
             "id": "overview",
             "label": "概要",
             "body": _build_overview_section(trip, docs, sightseeing_rows, theme),
+        },
+        {
+            "id": "map",
+            "label": "地図",
+            "body": _build_map_embed_section(trip),
         },
         {
             "id": "itinerary",
@@ -937,6 +971,38 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
       background: rgba(255, 255, 255, 0.55);
     }}
 
+    .map-frame-wrap {{
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.7);
+      min-height: 560px;
+    }}
+
+    .map-frame {{
+      display: block;
+      width: 100%;
+      height: 560px;
+      border: 0;
+    }}
+
+    .map-links {{
+      margin-top: 14px;
+    }}
+
+    .map-link-button {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      text-decoration: none;
+      color: white;
+      background: var(--blue);
+      font-weight: 700;
+    }}
+
     .candidate-list {{
       list-style: none;
       padding: 0;
@@ -985,6 +1051,12 @@ def build_dashboard(output_path=DASHBOARD_OUTPUT_PATH) -> Path:
 
       .data-table {{
         min-width: 640px;
+      }}
+
+      .map-frame-wrap,
+      .map-frame {{
+        min-height: 420px;
+        height: 420px;
       }}
     }}
   </style>

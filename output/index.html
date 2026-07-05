@@ -415,6 +415,38 @@
       background: rgba(255, 255, 255, 0.55);
     }
 
+    .map-frame-wrap {
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.7);
+      min-height: 560px;
+    }
+
+    .map-frame {
+      display: block;
+      width: 100%;
+      height: 560px;
+      border: 0;
+    }
+
+    .map-links {
+      margin-top: 14px;
+    }
+
+    .map-link-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      text-decoration: none;
+      color: white;
+      background: var(--blue);
+      font-weight: 700;
+    }
+
     .candidate-list {
       list-style: none;
       padding: 0;
@@ -464,6 +496,12 @@
       .data-table {
         min-width: 640px;
       }
+
+      .map-frame-wrap,
+      .map-frame {
+        min-height: 420px;
+        height: 420px;
+      }
     }
   </style>
 </head>
@@ -471,10 +509,10 @@
   <main class="shell">
     <div class="topbar">
       <div><strong>2026年7月_理実誕生日旅行</strong></div>
-      <div>Couple itinerary · Updated: 2026-07-05 15:30</div>
+      <div>Couple itinerary · Updated: 2026-07-05 15:37</div>
     </div>
     <nav class="tabs" aria-label="Travel dashboard tabs">
-      <button class="tab-button is-active" data-tab="overview">概要</button><button class="tab-button" data-tab="itinerary">旅程表</button><button class="tab-button" data-tab="sightseeing">観光候補</button><button class="tab-button" data-tab="hotels">宿泊候補</button><button class="tab-button" data-tab="restaurants">食事候補</button><button class="tab-button" data-tab="transport">移動</button><button class="tab-button" data-tab="budget">予算</button><button class="tab-button" data-tab="reservations">予約・ToDo</button><button class="tab-button" data-tab="birthday">誕生日演出</button><button class="tab-button" data-tab="notes">メモ</button>
+      <button class="tab-button is-active" data-tab="overview">概要</button><button class="tab-button" data-tab="map">地図</button><button class="tab-button" data-tab="itinerary">旅程表</button><button class="tab-button" data-tab="sightseeing">観光候補</button><button class="tab-button" data-tab="hotels">宿泊候補</button><button class="tab-button" data-tab="restaurants">食事候補</button><button class="tab-button" data-tab="transport">移動</button><button class="tab-button" data-tab="budget">予算</button><button class="tab-button" data-tab="reservations">予約・ToDo</button><button class="tab-button" data-tab="birthday">誕生日演出</button><button class="tab-button" data-tab="notes">メモ</button>
     </nav>
     <section id="overview" class="tab-panel is-active"><section class="hero"><div class="hero-copy"><p class="eyebrow">Anniversary Escape</p><div class="hero-tag">FOR THE TWO OF US</div><h1>2026年7月_理実誕生日旅行</h1><p class="hero-summary hero-summary-soft">広島から山陰までを3泊4日でめぐりながら、景色と食事と温泉をゆっくり味わう誕生日旅にする。</p><div class="hero-meta"><span>広島 / 宮島 / 尾道 / 出雲 / 松江 / 玉造温泉</span><span>2026-07-18 - 2026-07-21</span><span>3泊4日</span></div><div class="chip-row"><span class="chip">移動の無理がないこと</span><span class="chip">暑さ対策</span><span class="chip">景色</span><span class="chip">食事</span><span class="chip">宿</span><span class="chip">誕生日演出</span></div></div><div class="hero-side"><section class="stats-section"><div class="section-mini-label">ふたりの旅メモ</div><div class="stats-grid"><article class="stat-card"><div class="stat-label">候補総数</div><div class="stat-value">20</div></article><article class="stat-card"><div class="stat-label">優先度S</div><div class="stat-value">5</div></article><article class="stat-card"><div class="stat-label">雨天対応可</div><div class="stat-value">16</div></article><article class="stat-card"><div class="stat-label">誕生日向き4以上</div><div class="stat-value">14</div></article></div></section><div class="hero-note"><div class="section-mini-label">この旅で大事にしたいこと</div><p>夫婦でゆっくり楽しめる、誕生日感のある旅行を計画する</p></div></div></section><section class="content-card content-card-overview"><h1>概要</h1>
 <ul>
@@ -495,7 +533,7 @@
 <li>絶景と温泉の比重を少し高めにして、夏でも気持ちよく過ごせる流れにする</li>
 <li>屋外が続きすぎないよう、暑い時間帯は屋内やカフェ休憩を差し込みやすくしておく</li>
 <li>山陰側は移動時間が長くなりやすいので、見る場所を絞ってゆったり動く</li>
-</ul></section></section><section id="itinerary" class="tab-panel"><section class="content-card"><div class="section-header"><h2>旅程表</h2></div><div class="section-copy"><h1>旅程表</h1>
+</ul></section></section><section id="map" class="tab-panel"><section class="content-card"><div class="section-header"><h2>地図</h2></div><div class="section-copy"><p>Google My Maps の埋め込み表示です。位置関係の確認はここ、細かい編集は My Maps 側で行います。</p><ul><li>ピン色やアイコン変更は My Maps 側のスタイル編集で行います。</li><li>閲覧できない場合は地図の共有設定を確認してください。</li></ul></div><div class="section-body"><div class="map-frame-wrap"><iframe class="map-frame" src="https://www.google.com/maps/d/embed?mid=1u1mFZ5mAd8fxwiH_t1S5K0g37RC7WN0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div><div class="map-links"><a class="map-link-button" href="https://www.google.com/maps/d/viewer?mid=1u1mFZ5mAd8fxwiH_t1S5K0g37RC7WN0" target="_blank" rel="noreferrer">Google My Mapsで開く</a></div></div></section></section><section id="itinerary" class="tab-panel"><section class="content-card"><div class="section-header"><h2>旅程表</h2></div><div class="section-copy"><h1>旅程表</h1>
 <h2>Day1</h2>
 <ul>
 <li>広島市内に着いたら、まずは移動疲れをためないペースでスタート</li>
@@ -545,7 +583,7 @@
 <li>Day3 と Day4 に候補が集中しやすい</li>
 <li>真夏なので神社、灯台、海辺は滞在時間を短く設定する</li>
 <li>雨天時の代替として美術館、城、商店街、温泉を厚めに持つ</li>
-</ul></div><div class="section-body"><div class="inline-note">My Maps CSV 出力先: /private/tmp/2026-07_satomi-birthday-publish-20260705-https/output/mymaps_import.csv</div></div></section></section>
+</ul></div><div class="section-body"><div class="inline-note">My Maps CSV 出力先: /Users/yuki/development/travel-planning/2026-07_satomi-birthday/output/mymaps_import.csv</div></div></section></section>
     <footer class="footer">A small keepsake site for planning a gentle birthday getaway together.</footer>
   </main>
   <script>
